@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dark Frame</title>
+<link rel="icon" type="image/gif" href="images/sonic xde choro.gif" />
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Anton&family=Cinzel:wght@400;500;600;700;800;900&family=Cormorant+Garamond:wght@500;600;700&display=swap');
+
+  :root{
+    --bg:#050507;
+    --panel:rgba(9,7,10,0.94);
+    --panel-border:rgba(255,255,255,0.07);
+    --text:#efe9e6;
+    --muted:#a79fa2;
+    --red:#e01235;
+    --red-deep:#7a0d1f;
+    --gold:#c9974c;
+    --shadow:rgba(0,0,0,0.6);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;min-height:100%;font-family:'Cormorant Garamond',Georgia,serif;color:var(--text);}
+  body{
+    background-color:#030304;
+    background-image:
+      radial-gradient(circle at 50% 0%, #150409 0%, var(--bg) 35%, #020203 85%),
+      linear-gradient(rgba(224,18,53,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(224,18,53,0.03) 1px, transparent 1px);
+    background-size:100% 100%, 44px 44px, 44px 44px;
+    display:flex;align-items:center;justify-content:center;padding:32px;
+  }
+
+  .container{
+    width:min(1180px,100%);min-height:720px;max-height:92vh;
+    background:var(--panel);border:1px solid var(--panel-border);border-radius:10px;
+    box-shadow:0 30px 90px var(--shadow);overflow:hidden;position:relative;isolation:isolate;
+    perspective:2400px;
+  }
+  .container::after{position:absolute;top:0;right:0;width:38%;height:1px;background:linear-gradient(90deg,transparent,var(--red));content:'';z-index:1;}
+
+  .slide{
+    position:absolute;inset:0;display:none;
+    padding:56px 56px 78px;overflow-y:auto;
+    background:var(--panel);
+    backface-visibility:hidden;
+    box-shadow:0 0 0 rgba(0,0,0,0);
+  }
+  .slide.is-active{display:block;}
+  .slide.is-flipping{transition:transform .8s cubic-bezier(.645,.045,.355,1);box-shadow:0 10px 60px rgba(0,0,0,.6);}
+  @media (prefers-reduced-motion:reduce){ .slide.is-flipping{transition:none;} }
+
+  /* ---- barra de navegación fija (como el pie de página de un libro) ---- */
+  .page-nav{
+    position:absolute;left:0;right:0;bottom:0;height:56px;z-index:60;
+    display:flex;align-items:center;justify-content:space-between;padding:0 24px;
+    border-top:1px solid var(--panel-border);
+    background:linear-gradient(0deg, rgba(5,5,7,.97), rgba(5,5,7,.8));
+  }
+  .page-nav button{
+    background:none;border:1px solid var(--panel-border);color:var(--text);cursor:pointer;
+    font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
+    padding:9px 16px;transition:border-color .2s ease, color .2s ease;
+  }
+  .page-nav button:hover:not(:disabled){border-color:var(--red);color:#ff4d63;}
+  .page-nav button:disabled{opacity:.3;cursor:default;}
+  .page-nav .counter{font-family:'Anton',sans-serif;letter-spacing:.05em;color:var(--red);font-size:1rem;}
+
+  .brand-lockup{display:inline-flex;align-items:center;gap:14px;padding-bottom:14px;border-bottom:1px solid rgba(224,18,53,0.4);}
+  .brand-monogram{display:grid;width:44px;height:44px;place-items:center;overflow:hidden;border:1px solid var(--red);box-shadow:0 0 22px rgba(224,18,53,0.35);}
+  .brand-monogram img{width:100%;height:100%;object-fit:cover;}
+  .brand-name{font-family:'Cinzel',serif;font-size:1.5rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;}
+  .brand-name strong{font-weight:800;background:linear-gradient(110deg,#ff5066 0%, var(--red) 45%, #1a0004 100%);-webkit-background-clip:text;background-clip:text;color:transparent;}
+
+  .digital-meta{display:flex;align-items:center;gap:12px;margin:22px 0 -4px;color:var(--red);font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;}
+  .digital-meta::before{width:34px;height:1px;background:var(--red);content:'';}
+
+  h1{font-family:'Cinzel',serif;font-size:clamp(2rem,4.2vw,3.6rem);line-height:1;margin:20px 0 14px;letter-spacing:.05em;text-transform:uppercase;max-width:720px;text-shadow:0 0 26px rgba(224,18,53,.25);}
+  .highlight{color:#ff4d63;text-shadow:0 0 14px rgba(255,77,99,.7),0 0 32px rgba(224,18,53,.4);}
+  h2.section-title{font-family:'Cinzel',serif;color:var(--text);font-size:clamp(1.7rem,3.6vw,2.5rem);letter-spacing:.04em;text-transform:uppercase;margin:14px 0 8px;}
+  h2.section-title em{font-style:normal;color:var(--red);}
+  p{color:var(--muted);font-size:1.1rem;line-height:1.6;max-width:680px;}
+  .lede{max-width:640px;}
+  .thread{max-width:700px;font-size:1.02rem;color:#cfc7c9;border-left:2px solid var(--red);padding-left:16px;margin-top:18px;}
+
+  .actions{display:flex;flex-wrap:wrap;gap:16px;margin-top:22px;}
+  .button{display:inline-block;padding:12px 20px;border-radius:2px;text-decoration:none;font-weight:700;font-family:inherit;font-size:.98rem;cursor:pointer;transition:transform .2s ease, box-shadow .2s ease, color .2s ease, border-color .2s ease;}
+  .button:focus-visible{outline:2px solid var(--red);outline-offset:3px;}
+  .button.primary{background:linear-gradient(135deg,var(--red),#8a0f26);color:#fff;box-shadow:0 16px 32px rgba(224,18,53,.3);}
+  .button.primary:hover{transform:translateY(-2px);box-shadow:0 20px 40px rgba(224,18,53,.45);}
+  .button.secondary{background:transparent;border:1px solid var(--panel-border);color:var(--text);}
+  .button.secondary:hover{border-color:var(--red);color:#ff4d63;}
+
+  /* ---- portada tipo póster/revista ---- */
+  #s0{position:relative;background-image:
+      repeating-radial-gradient(circle at 0 0, rgba(224,18,53,0.05) 0, rgba(224,18,53,0.05) 1px, transparent 1px, transparent 6px);
+  }
+  #s0::before{
+    content:'';position:absolute;inset:0;
+    background:url('images/Evangelion,portada,jpg.jpg') center/100% 100% no-repeat;
+    filter:blur(1px);opacity:.82;z-index:0;
+  }
+  #s0::after{
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(5,5,7,.34),rgba(5,5,7,.58));
+    z-index:0;
+  }
+  #s0 > *{position:relative;z-index:1;}
+  .cover-stripe{
+    position:absolute;top:26px;left:-40px;width:calc(100% + 80px);
+    padding:5px 0;transform:rotate(-2.2deg);
+    background:repeating-linear-gradient(-45deg, var(--red) 0 18px, #0c0508 18px 36px);
+    box-shadow:0 10px 30px rgba(0,0,0,.5);z-index:2;
+  }
+  .cover-stripe span{
+    display:block;text-align:center;font-family:'Cinzel',serif;color:#fff;
+    font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;
+    text-shadow:0 1px 3px rgba(0,0,0,.8);
+  }
+  .cover-top{display:flex;align-items:flex-start;justify-content:space-between;margin-top:56px;gap:20px;}
+  .cover-issue{font-family:'Anton',sans-serif;font-size:5.5rem;line-height:.8;color:#fff;
+    -webkit-text-stroke:4px var(--red);color:transparent;text-shadow:4px 5px 0 rgba(0,0,0,.8),0 0 18px rgba(224,18,53,.55);flex-shrink:0;}
+  .cover-side-text{
+    writing-mode:vertical-rl;font-family:'Cinzel',serif;letter-spacing:.35em;
+    font-size:.7rem;color:var(--red);text-transform:uppercase;padding-top:6px;
+  }
+  .glitch-title{
+    font-family:'Anton',sans-serif;text-transform:uppercase;letter-spacing:.02em;
+    font-size:clamp(2.8rem,7vw,5.4rem);line-height:.85;margin:14px 0 10px;color:#fff;
+    position:relative;text-shadow:2px 0 0 rgba(224,18,53,.85), -2px 0 0 rgba(53,180,220,.5);
+  }
+  #s0 .lede,#s0 .thread{color:#f4edef;text-shadow:0 2px 10px rgba(0,0,0,.95);}
+  #s0 .lede{font-size:1.12rem;font-weight:600;}
+  #s0 .thread{font-size:1.02rem;}
+  #s0 .cover-teaser .txt{font-size:1rem;text-shadow:0 2px 8px rgba(0,0,0,.95);}
+  #s0 .cover-teaser .desc{color:#e1d8da;text-shadow:0 2px 8px rgba(0,0,0,.95);}
+  #s1 .pair{padding:18px;background:linear-gradient(rgba(5,5,7,.48),rgba(5,5,7,.7)),url('images/fondolain.jpg') center/cover;}
+  .cover-copy-block{max-width:640px;}
+  .cover-teasers{display:flex;flex-direction:column;gap:0;margin-top:26px;border-top:1px solid var(--panel-border);}
+  .cover-teaser{
+    display:flex;align-items:center;gap:14px;padding:12px 4px;
+    border-bottom:1px solid var(--panel-border);background:none;border-left:0;border-right:0;
+    width:100%;color:var(--text);cursor:pointer;font-family:inherit;text-align:left;
+  }
+  .cover-teaser .num{font-family:'Anton',sans-serif;font-size:1.3rem;color:var(--red);min-width:34px;}
+  .cover-teaser .txt{font-family:'Cinzel',serif;font-size:1rem;letter-spacing:.03em;}
+  .cover-teaser .txt .eq{color:var(--gold);margin:0 6px;font-family:'Cormorant Garamond',serif;}
+  .cover-teaser .desc{margin-left:auto;font-size:.85rem;color:var(--muted);text-align:right;max-width:32ch;}
+  .cover-teaser:hover .txt{color:#ff4d63;}
+
+  /* ---- índice de la portada ---- */
+  .toc{list-style:none;margin:24px 0 0;padding:0;border-top:1px solid var(--panel-border);}
+  .toc li{border-bottom:1px solid var(--panel-border);}
+  .toc-item{width:100%;background:none;border:0;color:var(--text);cursor:pointer;display:flex;align-items:baseline;gap:18px;padding:16px 4px;text-align:left;font-family:inherit;}
+  .toc-num{font-family:'Cinzel',serif;color:var(--red);font-size:.85rem;min-width:24px;}
+  .toc-pair{font-size:1.2rem;font-family:'Cinzel',serif;letter-spacing:.02em;transition:color .2s;}
+  .toc-item:hover .toc-pair{color:#ff4d63;}
+  .toc-pair .eq{color:var(--gold);margin:0 8px;font-family:'Cormorant Garamond',serif;}
+  .toc-desc{margin-left:auto;color:var(--muted);font-size:.92rem;text-align:right;max-width:34ch;}
+
+  /* ---- pareja conectada ---- */
+  .pair{display:grid;grid-template-columns:1fr 90px 1fr;gap:0;margin-top:24px;align-items:stretch;}
+  .trio{display:grid;grid-template-columns:1fr 70px 1fr 70px 1fr;gap:0;margin-top:24px;align-items:stretch;}
+  .pair-card{position:relative;min-height:280px;border:1px solid var(--panel-border);overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:20px;background-size:cover;background-position:center;}
+  .pair-card::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg, rgba(5,5,7,.1) 0%, rgba(5,5,7,.55) 55%, rgba(5,5,7,.97) 100%);}
+  .pair-card > *{position:relative;z-index:1;}
+  .pair-card h4{margin:0 0 6px;font-family:'Cinzel',serif;font-size:1.15rem;letter-spacing:.03em;text-transform:uppercase;color:#fff;}
+  .pair-card p{margin:0;font-size:.96rem;color:#dcd4d6;max-width:none;line-height:1.5;}
+  .pair-card .tag{position:absolute;top:12px;right:12px;font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.1em;color:var(--muted);}
+  .connector{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:14px 0;}
+  .connector .line{width:1px;flex:1;background:linear-gradient(var(--red),transparent 90%);min-height:20px;}
+  .connector .label{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.12em;color:var(--red);text-align:center;text-transform:uppercase;writing-mode:vertical-rl;}
+  .connection-note{margin-top:16px;font-size:1.02rem;line-height:1.6;color:#d8d1d3;max-width:760px;}
+
+  /* ---- capítulo drift (trío) ---- */
+  .drift-tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px;}
+  .drift-tags span{font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;padding:6px 12px;border:1px solid rgba(224,18,53,.35);color:#ff8a97;}
+
+  /* ---- capítulo música ---- */
+  .music-cols{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:22px;}
+  .artist-list{list-style:none;margin:0;padding:0;}
+  .artist-list li{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid var(--panel-border);}
+  .artist-list .name{font-family:'Cinzel',serif;letter-spacing:.03em;font-size:1rem;color:var(--text);}
+  .artist-list .style{font-size:.88rem;color:var(--muted);text-align:right;max-width:55%;}
+  .graffiti-block{position:relative;min-height:220px;border:1px solid rgba(224,18,53,.25);padding:18px 20px;background-size:cover;background-position:center;display:flex;flex-direction:column;justify-content:flex-end;}
+  .graffiti-block::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg, rgba(5,5,7,.05), rgba(5,5,7,.92));}
+  .graffiti-block > *{position:relative;z-index:1;}
+  .graffiti-block h4{margin:0 0 8px;font-family:'Cinzel',serif;font-size:.98rem;letter-spacing:.04em;color:var(--gold);text-transform:uppercase;}
+  .graffiti-block p{margin:0;font-size:.94rem;max-width:none;}
+
+  /* ---- capítulos musicales, cada uno con su propia paleta ---- */
+  #s6{--chap:#35b6e8;--chap-tint:rgba(53,182,232,.16);}
+  #s7{--chap:#c9974c;--chap-tint:rgba(201,151,76,.18);}
+  #s8{--chap:#ff3fa0;--chap-tint:rgba(255,63,160,.16);}
+  #s6 .digital-meta, #s7 .digital-meta, #s8 .digital-meta{color:var(--chap);}
+  #s6 .digital-meta::before, #s7 .digital-meta::before, #s8 .digital-meta::before{background:var(--chap);}
+  #s6 h2.section-title em, #s7 h2.section-title em, #s8 h2.section-title em{color:var(--chap);}
+  #s6 .connector .line, #s7 .connector .line, #s8 .connector .line{background:linear-gradient(var(--chap),transparent 90%);}
+  #s6 .connector .label, #s7 .connector .label, #s8 .connector .label{color:var(--chap);}
+  #s6 .pair-card, #s7 .pair-card, #s8 .pair-card{border-color:var(--chap);border-color:rgba(255,255,255,.14);}
+  #s6 .connection-note, #s7 .connection-note, #s8 .connection-note{border-left:2px solid var(--chap);padding-left:16px;}
+
+  /* textura tipo animal print para la tarjeta de Rojuu */
+  .texture-animal{
+    background-image:
+      repeating-radial-gradient(ellipse at 20% 30%, #2b1608 0 6px, transparent 8px 42px),
+      repeating-radial-gradient(ellipse at 72% 58%, #2b1608 0 7px, transparent 9px 48px),
+      repeating-radial-gradient(ellipse at 42% 82%, #2b1608 0 5px, transparent 7px 34px),
+      linear-gradient(160deg, #ff2f92, #ff7fbf);
+    background-blend-mode: multiply, multiply, multiply, normal;
+  }
+  /* textura tipo aerosol/graffiti para la tarjeta de Saramalacara */
+  .texture-spray{
+    background-image:
+      repeating-linear-gradient(115deg, rgba(0,0,0,.55) 0 2px, transparent 2px 16px),
+      linear-gradient(160deg, #34063d, #6d0a45);
+  }
+
+  .slide-actions{display:flex;justify-content:space-between;gap:16px;margin-top:28px;padding-top:18px;border-top:1px solid var(--panel-border);}
+  .slide-actions::before{align-self:center;color:var(--muted);content:attr(data-code);font-family:'Cinzel',serif;font-size:.66rem;letter-spacing:.2em;}
+  .editorial-body{max-width:760px;margin-top:34px;border-left:2px solid var(--red);padding:24px 28px;background:rgba(224,18,53,.05);}
+  .editorial-body p{max-width:none;color:#dcd4d6;}
+  .editorial-signature{margin-top:28px;color:var(--red);font-family:'Cinzel',serif;font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;}
+
+  @media (max-width:760px){
+    .slide{padding:32px 22px 40px;}
+    .pair{grid-template-columns:1fr;}
+    .trio{grid-template-columns:1fr;}
+    .connector{flex-direction:row;padding:6px 0;}
+    .connector .line{width:100%;height:1px;min-height:0;}
+    .connector .label{writing-mode:horizontal-tb;}
+    .music-cols{grid-template-columns:1fr;}
+    .toc-desc{display:none;}
+    .cover-issue{font-size:3rem;}
+    .cover-side-text{display:none;}
+    .cover-teaser .desc{display:none;}
+  }
+</style>
+</head>
+<body>
+<main class="container">
+  <nav class="page-nav">
+    <button type="button" id="prevPageBtn">← Página anterior</button>
+    <span class="counter" id="pageCounter">01 / 08</span>
+    <button type="button" id="nextPageBtn">Página siguiente →</button>
+  </nav>
+
+  <!-- 0. HERO / PORTADA -->
+  <section class="slide is-active" id="s0" aria-hidden="false">
+    <div class="cover-stripe"><span>Archivo no oficial — solo lectura — edición 01</span></div>
+    <div class="cover-top">
+      <div>
+        <div class="brand-lockup">
+          <span class="brand-monogram"><img src="images/sonic xde choro.gif" alt="Icono de Dark Frame" /></span>
+          <span class="brand-name">Dark <strong>Frame</strong></span>
+        </div>
+        <h1 class="glitch-title">Todo viene<br>del mismo lugar</h1>
+      </div>
+      <span class="cover-issue">01</span>
+    </div>
+    <div class="cover-top" style="align-items:flex-start;">
+      <div class="cover-copy-block">
+        <p class="lede">Anime, drift y música under no son secciones separadas: son la misma obsesión mirada desde tres ángulos distintos.</p>
+        <p class="thread">El hilo conductor: todo lo que sigue se hizo (o se vive) fuera del circuito oficial — el mecha que colapsa por dentro, la basura convertida en poder, el auto que se va de cola en la montaña, el rap que se graba sin sello. Nada de esto pidió permiso.</p>
+      </div>
+      <span class="cover-side-text">アンダーグラウンド // DARK FRAME</span>
+    </div>
+    <div class="cover-teasers">
+      <button class="cover-teaser" data-goto="2"><span class="num">01</span><span class="txt">Evangelion <span class="eq">≈</span> Lain</span><span class="desc">Identidad que se disuelve</span></button>
+      <button class="cover-teaser" data-goto="3"><span class="num">02</span><span class="txt">Gachiakuta <span class="eq">≈</span> Graffiti <span class="eq">≈</span> Chainsaw Man</span><span class="desc">El margen se vuelve arte</span></button>
+      <button class="cover-teaser" data-goto="4"><span class="num">03</span><span class="txt">Death Note <span class="eq">≈</span> Attack on Titan</span><span class="desc">Poder absoluto, costo real</span></button>
+      <button class="cover-teaser" data-goto="5"><span class="num">04</span><span class="txt">Ippo <span class="eq">≈</span> Slam Dunk</span><span class="desc">Disciplina y repetición</span></button>
+      <button class="cover-teaser" data-goto="6"><span class="num">05</span><span class="txt">Initial D <span class="eq">≈</span> Drift real</span><span class="desc">Ficción y carretera</span></button>
+      <button class="cover-teaser" data-goto="7"><span class="num">06</span><span class="txt">Nujabes <span class="eq">≈</span> Samurai Champloo</span><span class="desc">El beat con banda sonora real</span></button>
+      <button class="cover-teaser" data-goto="8"><span class="num">07</span><span class="txt">Rap chileno</span><span class="desc">Hecho sin pedir permiso</span></button>
+    </div>
+  </section>
+
+  <!-- 1. MENSAJE DE LA EDITORIAL -->
+  <section class="slide" id="editorial" aria-hidden="true">
+    <div class="digital-meta">Nota de la editorial</div>
+    <h2 class="section-title">Antes de <em>entrar</em></h2>
+    <div class="editorial-body">
+      <p>Dark Frame nace de una idea sencilla: las cosas que nos obsesionan no viven en compartimentos separados. Un anime puede hablar de ansiedad con la misma fuerza que una canción, un auto o un muro pintado de madrugada.</p>
+      <p>Esta edición reúne esas conexiones sin pretender ordenarlas demasiado. Aquí conviven la ciencia ficción, la carretera, el graffiti y el rap porque todos comparten algo: fueron hechos por personas que encontraron una forma propia de existir fuera del centro.</p>
+      <p>Lee cada capítulo como una pista, no como una respuesta. El hilo aparece cuando empiezas a mirar las imágenes, los sonidos y las historias desde el mismo lugar.</p>
+      <div class="editorial-signature">La editorial // Dark Frame</div>
+    </div>
+    <div class="slide-actions" data-code="DF // EDITORIAL">
+      <button class="button secondary" data-goto="0">Volver a la portada</button>
+      <button class="button primary" data-goto="2">Entrar al capítulo 01</button>
+    </div>
+  </section>
+
+  <!-- 2. Evangelion / Lain -->
+  <section class="slide" id="s1" aria-hidden="true">
+    <div class="digital-meta">Capítulo 01</div>
+    <h2 class="section-title">Identidad que <em>se disuelve</em></h2>
+    <div class="pair">
+      <div class="pair-card" style="background-image:linear-gradient(160deg, rgba(224,18,53,.12), transparent), url('images/reiayanami.kpg.jpg');">
+        <span class="tag"></span>
+        <h4>Neon Genesis Evangelion</h4>
+        <p>Un mecha que es excusa para hablar de ansiedad, trauma y símbolos religiosos. La batalla real siempre pasa dentro de la cabeza del piloto.</p>
+      </div>
+      <div class="connector"><div class="line"></div><span class="label">misma grieta</span><div class="line"></div></div>
+      <div class="pair-card" style="background-image:linear-gradient(160deg, rgba(224,18,53,.12), transparent), url('images/LAIN 📼 __ Artist @anayuhsx.jpg');">
+        <span class="tag"></span>
+        <h4>Serial Experiments Lain</h4>
+        <p>Años antes de que internet se sintiera invasivo, esta serie ya mostraba una identidad disolviéndose entre lo real y la red.</p>
+      </div>
+    </div>
+    <p class="connection-note">Ambas series son bastante crudas, mostrando problemas mentales con ideas absurdas creando una sintonia que se siente irreal, inclusive algunas personas dicen que se siente como si entendieran al protagonista.</p>
+    <div class="slide-actions" data-code="DF // 01">
+      <button class="button secondary" data-goto="0">Volver al índice</button>
+      <button class="button primary" data-goto="3">Siguiente</button>
+    </div>
+  </section>
+
+  <!-- 2. Gachiakuta / Chainsaw Man / Graffiti -->
+  <section class="slide" id="s2" aria-hidden="true">
+    <div class="digital-meta">Capítulo 02</div>
+    <h2 class="section-title">El margen se vuelve <em>arte</em></h2>
+    <div class="trio">
+      <div class="pair-card" style="background-image:linear-gradient(160deg, rgba(224,18,53,.12), transparent), url('images/gachiakuta.jpg');">
+        <span class="tag">GACHIAKUTA — fondo sugerido: fotograma/arte</span>
+        <h4>Gachiakuta</h4>
+        <p>Un mundo que tira a la gente pobre junto con la basura, literalmente. La redención viene de lo que todos los demás desecharon.</p>
+      </div>
+      <div class="connector"><div class="line"></div><span class="label">basura y muro</span><div class="line"></div></div>
+      <div class="pair-card" style="background-image:linear-gradient(160deg, rgba(224,18,53,.12), transparent), url('images/graffiti-2.jpg');">
+        <span class="tag">GRAFFITI — fondo sugerido: tu foto de un muro</span>
+        <h4>Graffiti</h4>
+        <p>Arte hecho sobre lo que la ciudad ya dio por perdido: un muro sucio, un sitio eriazo. Mismo gesto que Gachiakuta, pero en la calle real.</p>
+      </div>
+      <div class="connector"><div class="line"></div><span class="label">caos visceral</span><div class="line"></div></div>
+      <div class="pair-card" style="background-image:linear-gradient(160deg, rgba(224,18,53,.12), transparent), url('images/chainsawman.jpg');">
+        <span class="tag">CHAINSAW MAN — fondo sugerido: fotograma/arte</span>
+        <h4>Chainsaw Man</h4>
+        <p>Caos visceral, deseo crudo y humor negro. El protagonista vive al margen de todo y ahí encuentra su única forma de poder.</p>
+      </div>
+    </div>
+    <p class="connection-note">Los tres agarran algo que la sociedad ya descartó —basura, un muro, un chico sin nada— y lo convierten en la fuente de todo su poder o su belleza. Ninguno pidió permiso para existir.</p>
+    <div class="slide-actions" data-code="DF // 02">
+      <button class="button secondary" data-goto="2">Volver</button>
+      <button class="button primary" data-goto="4">Siguiente</button>
+    </div>
+  </section>
+
+  <!-- 3. Death Note / AoT -->
+  <section class="slide" id="s3" aria-hidden="true">
+    <div class="digital-meta">Capítulo 03</div>
+    <h2 class="section-title">Poder absoluto, <em>costo real</em></h2>
+    <div class="pair">
+      <div class="pair-card" style="background-image:linear-gradient(160deg, rgba(224,18,53,.12), transparent), url('images/deathnote.jpg');">
+        <span class="tag">DEATH NOTE — fondo sugerido: fotograma/arte</span>
+        <h4>Death Note</h4>
+        <p>Un cuaderno que mata da a Light el poder de "arreglar" el mundo. Nadie con ese poder termina siendo el héroe que creía ser.</p>
+      </div>
+      <div class="connector"><div class="line"></div><span class="label">el precio del poder</span><div class="line"></div></div>
+      <div class="pair-card" style="background-image:linear-gradient(160deg, rgba(224,18,53,.12), transparent), url('images/aot.jpg');">
+        <span class="tag">ATTACK ON TITAN — fondo sugerido: fotograma/arte</span>
+        <h4>Attack on Titan</h4>
+        <p>Un ciclo de violencia que se repite generación tras generación. El enemigo cambia de cara, pero el patrón nunca se rompe.</p>
+      </div>
+    </div>
+    <p class="connection-note">Ambas historias arrancan con alguien que cree tener la razón moral de su lado, y terminan mostrando que ese poder absoluto siempre corrompe algo.</p>
+    <div class="slide-actions" data-code="DF // 03">
+      <button class="button secondary" data-goto="3">Volver</button>
+      <button class="button primary" data-goto="5">Siguiente</button>
+    </div>
+  </section>
+
+  <!-- 4. Ippo / Slam Dunk -->
+  <section class="slide" id="s4" aria-hidden="true">
+    <div class="digital-meta">Capítulo 04</div>
+    <h2 class="section-title">Disciplina y <em>repetición</em></h2>
+    <div class="pair">
+      <div class="pair-card" style="background-image:linear-gradient(160deg, rgba(224,18,53,.12), transparent), url('images/ippo.jpg');">
+        <span class="tag">HAJIME NO IPPO — fondo sugerido: fotograma/arte</span>
+        <h4>Hajime no Ippo</h4>
+        <p>Un chico sin confianza que se construye a golpes, literal, ronda tras ronda, hasta que la disciplina reemplaza al miedo.</p>
+      </div>
+      <div class="connector"><div class="line"></div><span class="label">mismo entrenamiento</span><div class="line"></div></div>
+      <div class="pair-card" style="background-image:linear-gradient(160deg, rgba(224,18,53,.12), transparent), url('images/slamdunk.jpg');">
+        <span class="tag">SLAM DUNK — fondo sugerido: fotograma/arte</span>
+        <h4>Slam Dunk</h4>
+        <p>Otro que empieza de cero y sin talento aparente. La cancha exige lo mismo que el ring: presentarse todos los días.</p>
+      </div>
+    </div>
+    <p class="connection-note">Ninguna de las dos historias trata sobre talento natural. Tratan sobre volver al gimnasio o a la cancha un día más, aunque perdiste ayer.</p>
+    <div class="slide-actions" data-code="DF // 04">
+      <button class="button secondary" data-goto="4">Volver</button>
+      <button class="button primary" data-goto="6">Siguiente</button>
+    </div>
+  </section>
+
+  <!-- 5. Initial D / Drift real -->
+  <section class="slide" id="s5" aria-hidden="true">
+    <div class="digital-meta">Capítulo 05</div>
+    <h2 class="section-title">Ficción y <em>carretera</em></h2>
+    <div class="pair">
+      <div class="pair-card" style="background-image:linear-gradient(160deg, rgba(224,18,53,.12), transparent), url('images/initiald.jpg');">
+        <span class="tag">INITIAL D — fondo sugerido: fotograma AE86</span>
+        <h4>Initial D</h4>
+        <p>Un repartidor de tofu que baja la montaña de noche entrega el café más rápido de la zona, sin saber que también es el mejor piloto de touge de la región.</p>
+      </div>
+      <div class="connector"><div class="line"></div><span class="label">misma montaña</span><div class="line"></div></div>
+      <div class="pair-card" style="background-image:linear-gradient(160deg, rgba(224,18,53,.12), transparent), url('images/drift.jpg');">
+        <span class="tag">DRIFT — fondo sugerido: tu foto de auto/humo</span>
+        <h4>Drift real</h4>
+        <p>Contravolante, tandem battles, el olor a neumático quemado. Lo que Initial D dibujó en pantalla nació de carreteras de montaña reales.</p>
+      </div>
+    </div>
+    <p class="connection-note">Initial D no inventó el drift: lo puso en pantalla. La cultura del touge —bajar de noche, ir de cola, ganar por control y no por potencia— ya existía, y sigue viva.</p>
+    <div class="drift-tags"><span>Touge</span><span>Tandem</span><span>Contravolante</span><span>AE86</span></div>
+    <div class="slide-actions" data-code="DF // 05">
+      <button class="button secondary" data-goto="5">Volver</button>
+      <button class="button primary" data-goto="7">Siguiente</button>
+    </div>
+  </section>
+
+  <!-- 6. Nujabes / Samurai Champloo (paleta azul/jazz) -->
+  <section class="slide" id="s6" aria-hidden="true">
+    <div class="digital-meta">Capítulo 06</div>
+    <h2 class="section-title">El beat que <em>puso la banda sonora</em></h2>
+    <div class="pair">
+      <div class="pair-card" style="background-image:linear-gradient(160deg, var(--chap-tint), transparent), url('images/nujabes.jpg');">
+        <span class="tag">NUJABES — fondo sugerido: arte/portada de disco</span>
+        <h4>Nujabes</h4>
+        <p>Productor japonés que mezcló jazz, samples suaves y hip-hop instrumental. Su sonido se volvió sinónimo de atmósfera antes que de letra.</p>
+      </div>
+      <div class="connector"><div class="line"></div><span class="label">banda sonora real</span><div class="line"></div></div>
+      <div class="pair-card" style="background-image:linear-gradient(160deg, var(--chap-tint), transparent), url('images/samuraichamploo.jpg');">
+        <span class="tag">SAMURAI CHAMPLOO — fondo sugerido: fotograma/arte</span>
+        <h4>Samurai Champloo</h4>
+        <p>Samuráis en el Japón Edo, con una banda sonora de hip-hop que no debería calzar y termina siendo inseparable de la serie.</p>
+      </div>
+    </div>
+    <p class="connection-note">Esta no es una conexión que me imaginé: Nujabes compuso música real para Samurai Champloo. Es el mismo choque de mundos que busca Dark Frame — épocas y culturas distintas, sonando juntas sin pedir perdón por eso.</p>
+    <div class="slide-actions" data-code="DF // 06">
+      <button class="button secondary" data-goto="6">Volver</button>
+      <button class="button primary" data-goto="8">Siguiente</button>
+    </div>
+  </section>
+
+  <!-- 7. ChystemC / Mente Sabia Crú (paleta ámbar/vieja escuela) -->
+  <section class="slide" id="s7" aria-hidden="true">
+    <div class="digital-meta">Capítulo 07</div>
+    <h2 class="section-title">La vieja escuela <em>de Santiago</em></h2>
+    <div class="pair">
+      <div class="pair-card" style="background-image:linear-gradient(160deg, var(--chap-tint), transparent), url('images/chystemc.jpg');">
+        <span class="tag">CHYSTEMC — fondo sugerido: foto/portada</span>
+        <h4>ChystemC</h4>
+        <p>Diego Torres, MC de La Florida. Viene del freestyle callejero de los 2000, jurado de Batalla de los Gallos y una discografía que nunca dejó el boom-bap de raíz.</p>
+      </div>
+      <div class="connector"><div class="line"></div><span class="label">mismo circuito</span><div class="line"></div></div>
+      <div class="pair-card" style="background-image:linear-gradient(160deg, var(--chap-tint), transparent), url('images/mentesabiacru.jpg');">
+        <span class="tag">MENTE SABIA CRÚ — fondo sugerido: foto/portada</span>
+        <h4>Mente Sabia Crú</h4>
+        <p>Colectivo de la zona norte de Santiago activo desde 1999. Boom-bap crudo, letras largas y una escena que se sostuvo sin necesitar la radio.</p>
+      </div>
+    </div>
+    <p class="connection-note">Ambos vienen del mismo circuito under de Santiago de los 2000: freestyle en la plaza, maquetas grabadas en la pieza, y años de tocatas antes de que a nadie le importara el streaming.</p>
+    <div class="slide-actions" data-code="DF // 07">
+      <button class="button secondary" data-goto="7">Volver</button>
+      <button class="button primary" data-goto="9">Siguiente</button>
+    </div>
+  </section>
+
+  <!-- 8. Rojuu / Saramalacara (paleta rosa/hyperpop, cierre) -->
+  <section class="slide" id="s8" aria-hidden="true">
+    <div class="digital-meta">Capítulo 08</div>
+    <h2 class="section-title">Internet <em>como escenario</em></h2>
+    <div class="pair">
+      <div class="pair-card texture-animal" style="background-blend-mode:multiply,multiply,multiply,normal;">
+        <span class="tag">ROJUU — puedes reemplazar esta textura por tu propia imagen</span>
+        <h4>Rojuu</h4>
+        <p>Barcelona. Pasó del trap a su propio género, el "shadow pop": emo, hyperpop, referencias directas al anime y una estética que no se toma en serio a sí misma en el mejor sentido.</p>
+      </div>
+      <div class="connector"><div class="line"></div><span class="label">colaboración real</span><div class="line"></div></div>
+      <div class="pair-card texture-spray">
+        <span class="tag">SARAMALACARA — puedes reemplazar esta textura por tu propia imagen</span>
+        <h4>Saramalacara</h4>
+        <p>Buenos Aires, colectivo RIPGANG. Viene del graffiti antes que de la música, y su hyperpop oscuro tiene la misma actitud callejera con la que empezó pintando muros.</p>
+      </div>
+    </div>
+    <p class="connection-note">No es una conexión inventada: la primera colaboración internacional de Saramalacara fue justo con Rojuu. Dos escenas —española y argentina— que crecieron en internet y hablan el mismo idioma visual: anime, glitch y colores que gritan.</p>
+    <p class="connection-note" style="margin-top:10px;">Y con esto se cierra el hilo completo: el mecha que colapsa, la basura que se vuelve arte, el auto que se va de cola, la vieja escuela de Santiago y el hyperpop hecho en una pieza — todo, sin pedir permiso.</p>
+    <div class="slide-actions" data-code="DF // 08">
+      <button class="button secondary" data-goto="8">Volver</button>
+      <button class="button primary" data-goto="0">Volver al inicio</button>
+    </div>
+  </section>
+</main>
+
+<script>
+  const slides = ['s0','editorial','s1','s2','s3','s4','s5','s6','s7','s8'].map(id => document.getElementById(id));
+  const prevPageBtn = document.getElementById('prevPageBtn');
+  const nextPageBtn = document.getElementById('nextPageBtn');
+  const pageCounter = document.getElementById('pageCounter');
+  let current = 0;
+  let isAnimating = false;
+
+  function updateNav(){
+    pageCounter.textContent = String(current + 1).padStart(2,'0') + ' / ' + String(slides.length).padStart(2,'0');
+    prevPageBtn.disabled = current === 0;
+    nextPageBtn.disabled = current === slides.length - 1;
+  }
+
+  function goTo(index){
+    if(isAnimating || index === current || index < 0 || index >= slides.length) return;
+    isAnimating = true;
+    const dir = index > current ? 1 : -1;
+    const from = slides[current];
+    const to = slides[index];
+
+    to.style.display = 'block';
+    to.style.zIndex = '1';
+    to.setAttribute('aria-hidden', 'false');
+
+    from.style.zIndex = '2';
+    from.style.transformOrigin = dir > 0 ? 'left center' : 'right center';
+    from.classList.add('is-flipping');
+    void from.offsetWidth; // fuerza el reflow antes de animar
+    from.style.transform = dir > 0 ? 'rotateY(-150deg)' : 'rotateY(150deg)';
+
+    setTimeout(() => {
+      from.classList.remove('is-active', 'is-flipping');
+      from.setAttribute('aria-hidden', 'true');
+      from.style.display = 'none';
+      from.style.transform = '';
+      from.style.zIndex = '';
+      to.classList.add('is-active');
+      to.scrollTop = 0;
+      current = index;
+      updateNav();
+      isAnimating = false;
+    }, 820);
+  }
+
+  document.querySelectorAll('[data-goto]').forEach(el => {
+    el.addEventListener('click', () => goTo(parseInt(el.dataset.goto, 10)));
+  });
+  prevPageBtn.addEventListener('click', () => goTo(current - 1));
+  nextPageBtn.addEventListener('click', () => goTo(current + 1));
+
+  updateNav();
+</script>
+</body>
+</html>
