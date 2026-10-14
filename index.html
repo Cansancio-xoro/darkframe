@@ -200,20 +200,56 @@
   #s6 .pair-card, #s7 .pair-card, #s8 .pair-card{border-color:var(--chap);border-color:rgba(255,255,255,.14);}
   #s6 .connection-note, #s7 .connection-note, #s8 .connection-note{border-left:2px solid var(--chap);padding-left:16px;}
 
-  /* textura tipo animal print para la tarjeta de Rojuu */
-  .texture-animal{
-    background-image:
-      repeating-radial-gradient(ellipse at 20% 30%, #2b1608 0 6px, transparent 8px 42px),
-      repeating-radial-gradient(ellipse at 72% 58%, #2b1608 0 7px, transparent 9px 48px),
-      repeating-radial-gradient(ellipse at 42% 82%, #2b1608 0 5px, transparent 7px 34px),
-      linear-gradient(160deg, #ff2f92, #ff7fbf);
-    background-blend-mode: multiply, multiply, multiply, normal;
-  }
-  /* textura tipo aerosol/graffiti para la tarjeta de Saramalacara */
-  .texture-spray{
-    background-image:
-      repeating-linear-gradient(115deg, rgba(0,0,0,.55) 0 2px, transparent 2px 16px),
-      linear-gradient(160deg, #34063d, #6d0a45);
+/* ---- estética digital oscura: Sewerslvt ---- */
+.texture-sewer{
+  background-color:#100819;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(0,0,0,.28) 0px,
+      rgba(0,0,0,.28) 1px,
+      transparent 1px,
+      transparent 4px
+    ),
+    radial-gradient(
+      ellipse at 25% 25%,
+      #57205e 0%,
+      transparent 48%
+    ),
+    radial-gradient(
+      ellipse at 80% 75%,
+      #192f56 0%,
+      transparent 48%
+    ),
+    linear-gradient(
+      135deg,
+      #08060c,
+      #25102d 50%,
+      #080b17
+    );
+}
+
+/* ---- estética urbana: Saramalacara ---- */
+.texture-spray{
+  background-color:#18091e;
+  background-image:
+    repeating-linear-gradient(
+      115deg,
+      rgba(0,0,0,.55) 0 2px,
+      transparent 2px 16px
+    ),
+    radial-gradient(
+      ellipse at 75% 20%,
+      rgba(224,18,53,.4),
+      transparent 55%
+    ),
+    linear-gradient(
+      160deg,
+      #100817,
+      #34063d 55%,
+      #6d0a45
+    );
+}
   }
 
   .slide-actions{display:flex;justify-content:space-between;gap:16px;margin-top:28px;padding-top:18px;border-top:1px solid var(--panel-border);}
