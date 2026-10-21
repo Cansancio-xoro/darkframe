@@ -269,6 +269,92 @@
     .cover-teaser .desc{display:none;}
   }
 </style>
+    <div class="slide-actions" data-code="DF // 08">
+      <button class="button secondary" data-goto="8">Volver</button>
+      <button class="button primary" data-goto="10">Cerrar la revista</button>
+    </div>
+  </section>
+
+  <!-- 9. CIERRE DEFINITIVO DE DARK FRAME -->
+  <section class="slide df-finale" id="s9" aria-hidden="true">
+    <div class="df-finale-content">
+
+      <div class="digital-meta">Última transmisión</div>
+
+      <h2 class="df-finale-title">
+        FIN DE<br><span>TRANSMISIÓN.</span>
+      </h2>
+
+      <p class="df-finale-subtitle">
+        Llegaste hasta el final. Qué criatura más curiosa.
+      </p>
+
+      <div class="df-finale-message">
+        <p>
+          Entre mundos que se derrumban, identidades perdidas,
+          muros convertidos en arte, carreteras nocturnas y sonidos
+          nacidos lejos de lo convencional...
+        </p>
+
+        <p><strong>Gracias por formar parte de DARK FRAME.</strong></p>
+
+        <p>
+          Esta revista nació para reunir aquello que no siempre
+          encuentra un lugar en el centro. Lo extraño, lo imperfecto,
+          lo alternativo y todo aquello que nos hace mirar el mundo
+          desde otro ángulo.
+        </p>
+
+        <p>
+          Esperamos que hayas disfrutado el viaje. Ahora puedes cerrar
+          esta página con una sonrisa: sobreviviste a todos nuestros
+          pensamientos raros.
+        </p>
+      </div>
+
+      <div class="df-finale-teaser">
+        <span class="df-finale-label">PRÓXIMA EDICIÓN</span>
+
+        <h3>ALGO SE APROXIMA<span>_</span></h3>
+
+        <p>
+          Nuevos mundos. Nuevas obsesiones.
+          Una fecha que todavía nadie conoce...
+        </p>
+
+        <div class="df-finale-stamp">
+          <span>ESTADO:</span>
+          <strong>NUNCA EXISTIRÁ.</strong>
+        </div>
+
+        <p class="df-finale-joke">JA, JA. TE LO CREÍSTE.</p>
+      </div>
+
+      <div class="df-finale-bottom">
+        <div>
+          <span class="df-finale-small">EDICIÓN 01 — ARCHIVO FINAL</span>
+          <h3>DARK<span>FRAME</span></h3>
+        </div>
+
+        <div class="df-finale-signature">
+          <span>HECHO DESDE EL RUIDO.</span>
+          <span>CONSERVADO EN LA MEMORIA.</span>
+        </div>
+      </div>
+
+      <p class="df-finale-goodbye">
+        NO HAY SEGUNDA EDICIÓN. HAY UNA PRIMERA QUE RECORDAR.
+      </p>
+
+      <div class="actions">
+        <button class="button secondary" data-goto="0">
+          Volver a la portada
+        </button>
+      </div>
+
+    </div>
+  </section>
+</main>
 </head>
 <body>
 <main class="container">
@@ -526,8 +612,8 @@
   </section>
 </main>
 
-<script>
-  const slides = ['s0','editorial','s1','s2','s3','s4','s5','s6','s7','s8'].map(id => document.getElementById(id));
+<script>  
+  const slides = ['s0','editorial','s1','s2','s3','s4','s5','s6','s7','s8','s9'].map(id => document.getElementById(id));
   const prevPageBtn = document.getElementById('prevPageBtn');
   const nextPageBtn = document.getElementById('nextPageBtn');
   const pageCounter = document.getElementById('pageCounter');
