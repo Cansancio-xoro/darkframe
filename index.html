@@ -166,6 +166,10 @@
   .pair-card > *{position:relative;z-index:1;}
   .pair-card h4{margin:0 0 6px;font-family:'Cinzel',serif;font-size:1.15rem;letter-spacing:.03em;text-transform:uppercase;color:#fff;}
   .pair-card p{margin:0;font-size:.96rem;color:#dcd4d6;max-width:none;line-height:1.5;}
+  .info-link{display:inline-flex;align-self:flex-start;align-items:center;gap:8px;margin-top:14px;padding:10px 14px;border:1px solid rgba(255,77,99,.65);background:rgba(5,5,7,.82);color:#fff;text-decoration:none;font-family:'Cinzel',serif;font-size:.78rem;font-weight:700;letter-spacing:.04em;transition:background-color .2s ease,border-color .2s ease,transform .2s ease;}
+  .info-link::after{content:'↗';color:#ff7888;font-size:1rem;}
+  .info-link:hover{transform:translateY(-2px);border-color:#ff7888;background:rgba(122,13,31,.9);}
+  .info-link:focus-visible{outline:2px solid #fff;outline-offset:3px;}
   .pair-card .tag{position:absolute;top:12px;right:12px;font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.1em;color:var(--muted);}
   .connector{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:14px 0;}
   .connector .line{width:1px;flex:1;background:linear-gradient(var(--red),transparent 90%);min-height:20px;}
@@ -464,7 +468,7 @@
     <div class="cover-top" style="align-items:flex-start;">
       <div class="cover-copy-block">
         <p class="lede">Anime, drift y música under no son secciones separadas: son la misma obsesión mirada desde tres ángulos distintos.</p>
-        <p class="thread">El hilo conductor: todo lo que sigue se hizo (o se vive) fuera del circuito oficial — el mecha que colapsa por dentro, la basura convertida en poder, el auto que se va de cola en la montaña, el rap que se graba sin sello. Nada de esto pidió permiso.</p>
+        <p class="thread">No comparten origen ni pertenecen al mismo circuito. Esta revista los conecta desde una mirada personal: historias sobre identidad, poder y disciplina junto a escenas musicales y automovilísticas que inspiran formas propias de expresión.</p>
       </div>
       <span class="cover-side-text">アンダーグラウンド // DARK FRAME</span>
     </div>
@@ -474,7 +478,7 @@
       <button class="cover-teaser" data-goto="4"><span class="num">03</span><span class="txt">Death Note <span class="eq">≈</span> Attack on Titan</span><span class="desc">Poder absoluto, costo real</span></button>
       <button class="cover-teaser" data-goto="5"><span class="num">04</span><span class="txt">Ippo <span class="eq">≈</span> Slam Dunk</span><span class="desc">Disciplina y repetición</span></button>
       <button class="cover-teaser" data-goto="6"><span class="num">05</span><span class="txt">Initial D <span class="eq">≈</span> Drift real</span><span class="desc">Ficción y carretera</span></button>
-      <button class="cover-teaser" data-goto="7"><span class="num">06</span><span class="txt">Nujabes <span class="eq">≈</span> Samurai Champloo</span><span class="desc">El beat con banda sonora real</span></button>
+      <button class="cover-teaser" data-goto="7"><span class="num">06</span><span class="txt">Nujabes <span class="eq">≈</span> Samurai Champloo</span><span class="desc">Música para Samurai Champloo</span></button>
       <button class="cover-teaser" data-goto="8"><span class="num">07</span><span class="txt">Rap chileno</span><span class="desc">Hecho sin pedir permiso</span></button>
     </div>
   </section>
@@ -484,9 +488,9 @@
     <div class="digital-meta">Nota de la editorial</div>
     <h2 class="section-title">Antes de <em>entrar</em></h2>
     <div class="editorial-body">
-      <p>Dark Frame nace de una idea sencilla: las cosas que nos obsesionan no viven en compartimentos separados. Un anime puede hablar de ansiedad con la misma fuerza que una canción, un auto o un muro pintado de madrugada.</p>
-      <p>Esta edición reúne esas conexiones sin pretender ordenarlas demasiado. Aquí conviven la ciencia ficción, la carretera, el graffiti y el rap porque todos comparten algo: fueron hechos por personas que encontraron una forma propia de existir fuera del centro.</p>
-      <p>Lee cada capítulo como una pista, no como una respuesta. El hilo aparece cuando empiezas a mirar las imágenes, los sonidos y las historias desde el mismo lugar.</p>
+      <p>Dark Frame nace de una idea sencilla: las cosas que nos interesan pueden dialogar aunque vengan de lugares distintos. Un anime, una canción, un auto o un muro pintado pueden despertar preguntas y emociones parecidas.</p>
+      <p>Esta edición reúne ciencia ficción, carretera, graffiti y rap sin afirmar que tengan el mismo origen o historia. Las conexiones entre ellos son una lectura editorial: una invitación a comparar temas, imágenes y formas de expresión.</p>
+      <p>Lee cada capítulo como una interpretación, no como una respuesta definitiva. El hilo aparece al mirar estas obras y escenas desde un mismo ángulo.</p>
       <div class="editorial-signature">La editorial // Dark Frame</div>
     </div>
     <div class="slide-actions" data-code="DF // EDITORIAL">
@@ -503,16 +507,17 @@
       <div class="pair-card" style="background-image:linear-gradient(160deg, rgba(224,18,53,.12), transparent), url('images/reiayanami.kpg.jpg');">
         <span class="tag"></span>
         <h4>Neon Genesis Evangelion</h4>
-        <p>Un mecha que es excusa para hablar de ansiedad, trauma y símbolos religiosos. La batalla real siempre pasa dentro de la cabeza del piloto.</p>
+        <p>La serie sigue a Shinji Ikari, un adolescente que pilota una unidad Evangelion. Junto a la acción de mechas, desarrolla temas psicológicos y utiliza referencias religiosas; cómo se interpretan esos elementos depende también de cada espectador.</p>
+        <a class="info-link" href="https://evangelion.fandom.com/wiki/Neon_Genesis_Evangelion" target="_blank" rel="noopener noreferrer" aria-label="Para más información sobre Neon Genesis Evangelion (abre en una pestaña nueva)">Para más información, aquí</a>
       </div>
       <div class="connector"><div class="line"></div><span class="label">misma grieta</span><div class="line"></div></div>
       <div class="pair-card" style="background-image:linear-gradient(160deg, rgba(224,18,53,.12), transparent), url('images/LAIN 📼 __ Artist @anayuhsx.jpg');">
         <span class="tag"></span>
         <h4>Serial Experiments Lain</h4>
-        <p>Años antes de que internet se sintiera invasivo, esta serie ya mostraba una identidad disolviéndose entre lo real y la red.</p>
+        <p>La historia sigue a Lain Iwakura mientras explora la Wired, una red de comunicación que se entrelaza cada vez más con su vida. La relación entre identidad, realidad y conexión digital es uno de sus temas centrales.</p>
       </div>
     </div>
-    <p class="connection-note">Ambas series son bastante crudas, mostrando problemas mentales con ideas absurdas creando una sintonia que se siente irreal, inclusive algunas personas dicen que se siente como si entendieran al protagonista.</p>
+    <p class="connection-note">Una lectura posible es que ambas usan la ciencia ficción para explorar la identidad y el aislamiento, aunque lo hacen con historias y recursos muy distintos.</p>
     <div class="slide-actions" data-code="DF // 01">
       <button class="button secondary" data-goto="0">Volver al índice</button>
       <button class="button primary" data-goto="3">Siguiente</button>
@@ -527,22 +532,22 @@
       <div class="pair-card" style="background-image:linear-gradient(160deg, rgba(224,18,53,.12), transparent), url('images/gachiakuta.jpg');">
         <span class="tag">GACHIAKUTA — fondo sugerido: fotograma/arte</span>
         <h4>Gachiakuta</h4>
-        <p>Un mundo que tira a la gente pobre junto con la basura, literalmente. La redención viene de lo que todos los demás desecharon.</p>
+        <p>Rudo, un joven de los barrios bajos, es acusado injustamente de un crimen y arrojado al Abismo, donde se acumulan residuos. Allí conoce a quienes se enfrentan a las criaturas surgidas de la basura.</p>
       </div>
       <div class="connector"><div class="line"></div><span class="label">basura y muro</span><div class="line"></div></div>
       <div class="pair-card" style="background-image:linear-gradient(160deg, rgba(224,18,53,.12), transparent), url('images/graffiti-2.jpg');">
         <span class="tag">GRAFFITI — fondo sugerido: tu foto de un muro</span>
         <h4>Graffiti</h4>
-        <p>Arte hecho sobre lo que la ciudad ya dio por perdido: un muro sucio, un sitio eriazo. Mismo gesto que Gachiakuta, pero en la calle real.</p>
+        <p>El graffiti reúne prácticas muy distintas de escritura e intervención visual en espacios públicos. Aquí se pone en diálogo con Gachiakuta como otra manera de transformar el entorno, no como una equivalencia literal.</p>
       </div>
       <div class="connector"><div class="line"></div><span class="label">caos visceral</span><div class="line"></div></div>
       <div class="pair-card" style="background-image:linear-gradient(160deg, rgba(224,18,53,.12), transparent), url('images/chainsawman.jpg');">
         <span class="tag">CHAINSAW MAN — fondo sugerido: fotograma/arte</span>
         <h4>Chainsaw Man</h4>
-        <p>Caos visceral, deseo crudo y humor negro. El protagonista vive al margen de todo y ahí encuentra su única forma de poder.</p>
+        <p>Denji, un joven cazador de demonios endeudado, se fusiona con Pochita y se convierte en Chainsaw Man. La serie mezcla acción, humor negro y deseos cotidianos con un mundo violento.</p>
       </div>
     </div>
-    <p class="connection-note">Los tres agarran algo que la sociedad ya descartó —basura, un muro, un chico sin nada— y lo convierten en la fuente de todo su poder o su belleza. Ninguno pidió permiso para existir.</p>
+    <p class="connection-note">La conexión es temática, no literal: Gachiakuta y Chainsaw Man construyen mundos de ficción con personajes al margen, mientras que el graffiti abarca prácticas reales muy diversas. En los tres casos se puede observar una tensión entre quién ocupa el espacio y quién queda fuera.</p>
     <div class="slide-actions" data-code="DF // 02">
       <button class="button secondary" data-goto="2">Volver</button>
       <button class="button primary" data-goto="4">Siguiente</button>
@@ -557,16 +562,16 @@
       <div class="pair-card" style="background-image:linear-gradient(160deg, rgba(224,18,53,.12), transparent), url('images/deathnote.jpg');">
         <span class="tag">DEATH NOTE — fondo sugerido: fotograma/arte</span>
         <h4>Death Note</h4>
-        <p>Un cuaderno que mata da a Light el poder de "arreglar" el mundo. Nadie con ese poder termina siendo el héroe que creía ser.</p>
+        <p>Light Yagami encuentra un cuaderno sobrenatural capaz de matar a las personas cuyos nombres se escriben en él. Decide usarlo para imponer su propia idea de justicia.</p>
       </div>
       <div class="connector"><div class="line"></div><span class="label">el precio del poder</span><div class="line"></div></div>
       <div class="pair-card" style="background-image:linear-gradient(160deg, rgba(224,18,53,.12), transparent), url('images/aot.jpg');">
         <span class="tag">ATTACK ON TITAN — fondo sugerido: fotograma/arte</span>
         <h4>Attack on Titan</h4>
-        <p>Un ciclo de violencia que se repite generación tras generación. El enemigo cambia de cara, pero el patrón nunca se rompe.</p>
+        <p>En un mundo amenazado por los titanes, la historia sigue a Eren Jaeger y a quienes luchan por sobrevivir. La serie desarrolla conflictos sobre libertad, guerra y las consecuencias de la violencia.</p>
       </div>
     </div>
-    <p class="connection-note">Ambas historias arrancan con alguien que cree tener la razón moral de su lado, y terminan mostrando que ese poder absoluto siempre corrompe algo.</p>
+    <p class="connection-note">Una comparación posible es cómo ambas historias cuestionan decisiones tomadas en nombre de una causa. Sus personajes, conflictos y desenlaces son distintos; la relación entre ellas es una interpretación, no un dato de la trama.</p>
     <div class="slide-actions" data-code="DF // 03">
       <button class="button secondary" data-goto="3">Volver</button>
       <button class="button primary" data-goto="5">Siguiente</button>
@@ -581,16 +586,16 @@
       <div class="pair-card" style="background-image:linear-gradient(160deg, rgba(224,18,53,.12), transparent), url('images/ippo.jpg');">
         <span class="tag">HAJIME NO IPPO — fondo sugerido: fotograma/arte</span>
         <h4>Hajime no Ippo</h4>
-        <p>Un chico sin confianza que se construye a golpes, literal, ronda tras ronda, hasta que la disciplina reemplaza al miedo.</p>
+        <p>Ippo Makunouchi, un estudiante tímido que sufre acoso, descubre el boxeo y empieza a entrenar para convertirse en boxeador. La serie muestra su aprendizaje y sus combates.</p>
       </div>
       <div class="connector"><div class="line"></div><span class="label">mismo entrenamiento</span><div class="line"></div></div>
       <div class="pair-card" style="background-image:linear-gradient(160deg, rgba(224,18,53,.12), transparent), url('images/slamdunk.jpg');">
         <span class="tag">SLAM DUNK — fondo sugerido: fotograma/arte</span>
         <h4>Slam Dunk</h4>
-        <p>Otro que empieza de cero y sin talento aparente. La cancha exige lo mismo que el ring: presentarse todos los días.</p>
+        <p>Sakuragi Hanamichi se incorpora al equipo de baloncesto de su instituto siendo principiante. A medida que aprende el deporte, el entrenamiento y el trabajo en equipo se vuelven parte central de su recorrido.</p>
       </div>
     </div>
-    <p class="connection-note">Ninguna de las dos historias trata sobre talento natural. Tratan sobre volver al gimnasio o a la cancha un día más, aunque perdiste ayer.</p>
+    <p class="connection-note">Ambas series siguen a protagonistas que progresan en el deporte, pero sus historias y talentos son diferentes. La disciplina y el aprendizaje son un punto de comparación, no la única lectura posible.</p>
     <div class="slide-actions" data-code="DF // 04">
       <button class="button secondary" data-goto="4">Volver</button>
       <button class="button primary" data-goto="6">Siguiente</button>
@@ -605,16 +610,16 @@
       <div class="pair-card" style="background-image:linear-gradient(160deg, rgba(224,18,53,.12), transparent), url('images/initiald.jpg');">
         <span class="tag">INITIAL D — fondo sugerido: fotograma AE86</span>
         <h4>Initial D</h4>
-        <p>Un repartidor de tofu que baja la montaña de noche entrega el café más rápido de la zona, sin saber que también es el mejor piloto de touge de la región.</p>
+        <p>Takumi Fujiwara ayuda con las entregas de tofu de la tienda de su padre, Bunta, conduciendo por el monte Akina. Esas rutas contribuyen a desarrollar su habilidad al volante, aunque al principio no se considera un piloto de carreras.</p>
       </div>
       <div class="connector"><div class="line"></div><span class="label">misma montaña</span><div class="line"></div></div>
       <div class="pair-card" style="background-image:linear-gradient(160deg, rgba(224,18,53,.12), transparent), url('images/drift.jpg');">
         <span class="tag">DRIFT — fondo sugerido: tu foto de auto/humo</span>
         <h4>Drift real</h4>
-        <p>Contravolante, tandem battles, el olor a neumático quemado. Lo que Initial D dibujó en pantalla nació de carreteras de montaña reales.</p>
+        <p>El drift consiste en mantener un sobreviraje controlado mientras el vehículo atraviesa una curva. Initial D representa carreras de montaña y drift en la ficción; no creó esta práctica ni es un registro documental de ella.</p>
       </div>
     </div>
-    <p class="connection-note">Initial D no inventó el drift: lo puso en pantalla. La cultura del touge —bajar de noche, ir de cola, ganar por control y no por potencia— ya existía, y sigue viva.</p>
+    <p class="connection-note">Initial D es una obra de ficción que ayudó a acercar las carreras de montaña y el drift a su público. El touge y el drift tienen una historia propia fuera de la serie; no se reducen a competir de noche ni a una sola forma de conducir.</p>
     <div class="drift-tags"><span>Touge</span><span>Tandem</span><span>Contravolante</span><span>AE86</span></div>
     <div class="slide-actions" data-code="DF // 05">
       <button class="button secondary" data-goto="5">Volver</button>
@@ -625,21 +630,21 @@
   <!-- 6. Nujabes / Samurai Champloo (paleta azul/jazz) -->
   <section class="slide" id="s6" aria-hidden="true">
     <div class="digital-meta">Capítulo 06</div>
-    <h2 class="section-title">El beat que <em>puso la banda sonora</em></h2>
+    <h2 class="section-title">Un sonido que <em>aportó a la banda sonora</em></h2>
     <div class="pair">
       <div class="pair-card" style="background-image:linear-gradient(160deg, var(--chap-tint), transparent), url('images/nujabes.jpg');">
         <span class="tag">NUJABES — fondo sugerido: arte/portada de disco</span>
         <h4>Nujabes</h4>
-        <p>Productor japonés que mezcló jazz, samples suaves y hip-hop instrumental. Su sonido se volvió sinónimo de atmósfera antes que de letra.</p>
+        <p>Nujabes fue un productor y DJ japonés conocido por combinar hip-hop con influencias de jazz y otros géneros. Su sonido instrumental es una parte reconocible de su discografía.</p>
       </div>
-      <div class="connector"><div class="line"></div><span class="label">banda sonora real</span><div class="line"></div></div>
+      <div class="connector"><div class="line"></div><span class="label">aporte a la banda sonora</span><div class="line"></div></div>
       <div class="pair-card" style="background-image:linear-gradient(160deg, var(--chap-tint), transparent), url('images/samuraichamploo.jpg');">
         <span class="tag">SAMURAI CHAMPLOO — fondo sugerido: fotograma/arte</span>
         <h4>Samurai Champloo</h4>
-        <p>Samuráis en el Japón Edo, con una banda sonora de hip-hop que no debería calzar y termina siendo inseparable de la serie.</p>
+        <p>La serie sigue a tres viajeros en una versión ficticia del Japón del período Edo y combina su aventura con música hip-hop. La banda sonora incluye aportes de varios artistas, entre ellos Nujabes.</p>
       </div>
     </div>
-    <p class="connection-note">Esta no es una conexión que me imaginé: Nujabes compuso música real para Samurai Champloo. Es el mismo choque de mundos que busca Dark Frame — épocas y culturas distintas, sonando juntas sin pedir perdón por eso.</p>
+    <p class="connection-note">Nujabes contribuyó a la música de Samurai Champloo junto con otros artistas; no fue el único responsable de la banda sonora. La mezcla de una ambientación histórica ficticia con hip-hop es una decisión artística de la serie.</p>
     <div class="slide-actions" data-code="DF // 06">
       <button class="button secondary" data-goto="6">Volver</button>
       <button class="button primary" data-goto="8">Siguiente</button>
@@ -649,21 +654,21 @@
   <!-- 7. ChystemC / Mente Sabia Crú (paleta ámbar/vieja escuela) -->
   <section class="slide" id="s7" aria-hidden="true">
     <div class="digital-meta">Capítulo 07</div>
-    <h2 class="section-title">La vieja escuela <em>de Santiago</em></h2>
+    <h2 class="section-title">Voces del rap <em>chileno</em></h2>
     <div class="pair">
       <div class="pair-card" style="background-image:linear-gradient(160deg, var(--chap-tint), transparent), url('images/chystemc.jpg');">
         <span class="tag">CHYSTEMC — fondo sugerido: foto/portada</span>
         <h4>ChystemC</h4>
-        <p>Diego Torres, MC de La Florida. Viene del freestyle callejero de los 2000, jurado de Batalla de los Gallos y una discografía que nunca dejó el boom-bap de raíz.</p>
+        <p>Chystemc es un rapero chileno. Su trayectoria incluye grabaciones y presentaciones dentro de la escena hip-hop; esta revista no le atribuye un único estilo ni una trayectoria exclusivamente ligada al freestyle o al boom-bap.</p>
       </div>
-      <div class="connector"><div class="line"></div><span class="label">mismo circuito</span><div class="line"></div></div>
+      <div class="connector"><div class="line"></div><span class="label">dos trayectorias</span><div class="line"></div></div>
       <div class="pair-card" style="background-image:linear-gradient(160deg, var(--chap-tint), transparent), url('images/mentesabiacru.jpg');">
         <span class="tag">MENTE SABIA CRÚ — fondo sugerido: foto/portada</span>
         <h4>Mente Sabia Crú</h4>
-        <p>Colectivo de la zona norte de Santiago activo desde 1999. Boom-bap crudo, letras largas y una escena que se sostuvo sin necesitar la radio.</p>
+        <p>Mente Sabia Crú es un grupo chileno de hip-hop. Su trabajo forma parte de la escena local, con una propuesta que puede leerse dentro de distintas tradiciones del rap; no se fija aquí una fecha de inicio ni una zona de origen sin una fuente verificable.</p>
       </div>
     </div>
-    <p class="connection-note">Ambos vienen del mismo circuito under de Santiago de los 2000: freestyle en la plaza, maquetas grabadas en la pieza, y años de tocatas antes de que a nadie le importara el streaming.</p>
+    <p class="connection-note">Chystemc y Mente Sabia Crú son propuestas distintas del hip-hop chileno. Esta página las reúne como una selección editorial, sin afirmar que compartan origen, época o circuito.</p>
     <div class="slide-actions" data-code="DF // 07">
       <button class="button secondary" data-goto="7">Volver</button>
       <button class="button primary" data-goto="9">Siguiente</button>
@@ -678,17 +683,17 @@
     <div class="pair-card texture-yabujin" style="background-blend-mode:multiply,multiply,multiply,normal;">
       <span class="tag">YABUJIN — fantasía digital y underground experimental</span>
       <h4>Yabujin</h4>
-      <p>Yabujin transforma el caos de internet en un universo propio, donde el trap experimental, las melodías distorsionadas y las imágenes de estética retro se mezclan con una fantasía digital enigmática. A través de Azeroy, su mundo ficticio, construye una identidad que parece provenir de una realidad fragmentada: extraña, nostálgica y difícil de descifrar.</p>
+      <p>Yabujin es un artista asociado a la música experimental difundida en internet. En sus publicaciones combina sonidos y referencias visuales diversas, con una estética digital enigmática. Las referencias a Azeroy y su significado se presentan aquí como elementos de su imaginario, sujetos a interpretación.</p>
     </div>
-      <div class="connector"><div class="line"></div><span class="label">colaboración real</span><div class="line"></div></div>
+      <div class="connector"><div class="line"></div><span class="label">estéticas digitales</span><div class="line"></div></div>
       <div class="pair-card texture-spray">
         <span class="tag">SARAMALACARA — puedes reemplazar esta textura por tu propia imagen</span>
         <h4>Saramalacara</h4>
-        <p>Buenos Aires, colectivo RIPGANG. Viene del graffiti antes que de la música, y su hyperpop oscuro tiene la misma actitud callejera con la que empezó pintando muros.</p>
+        <p>Saramalacara es una artista argentina vinculada al colectivo musical RIPGANG. Su música mezcla recursos del rap y la producción electrónica; describirla con una sola etiqueta de género puede simplificar una obra cambiante.</p>
       </div>
     </div>
-<p class="connection-note">Yabujin y Saramalacara representan distintas formas de explorar la música underground desde internet. Mientras Yabujin construye un universo digital extraño y experimental, Saramalacara mezcla sonidos urbanos con una identidad visual propia. Ambos convierten internet en un espacio para crear algo fuera de lo convencional.</p>
-    <p class="connection-note" style="margin-top:10px;">Y con esto se cierra el hilo completo: el mecha que colapsa, la basura que se vuelve arte, el auto que se va de cola, la vieja escuela de Santiago y el hyperpop hecho en una pieza — todo, sin pedir permiso.</p>
+<p class="connection-note">No se afirma una colaboración entre Yabujin y Saramalacara: se los reúne por la circulación digital de su música y por sus estéticas, que son distintas. Esa relación es una lectura editorial.</p>
+    <p class="connection-note" style="margin-top:10px;">Y con esto se cierra el recorrido: anime, prácticas artísticas, automovilismo y música de escenas distintas, conectados aquí por una lectura editorial.</p>
 
     <div class="slide-actions" data-code="DF // 08">
       <button class="button secondary" data-goto="8">Volver</button>
@@ -771,6 +776,9 @@
         <button class="button secondary" data-goto="0">
           Volver a la portada
         </button>
+        <a class="button primary" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" rel="noopener noreferrer" aria-label="Segunda edición ya: abrir video en YouTube en una pestaña nueva">
+          SEGUNDA EDICIÓN YA
+        </a>
       </div>
 
     </div>
